@@ -1,0 +1,11 @@
+setwd("C:/Users/Vikas")
+data<-read.csv("data-12-feb.csv")
+library("plyr", lib.loc="~/R/win-library/3.1")
+data1<-count(data,"FK_GLUSR_USR_ID")
+data2<-subset(data1,freq>1)
+data$match<-match(data$FK_GLUSR_USR_ID, data2$FK_GLUSR_USR_ID, nomatch=0)
+data<-subset(data,match>0)
+data$match<-NULL
+colnames(data)
+colnames(data)<-c("glusr","mcatid")
+write.csv(data, file = "dataa.csv",row.names=FALSE)
